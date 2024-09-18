@@ -26,9 +26,8 @@ class MAS():
     def run(self):
         for agent1 in self.env.agents:
             self.env.bordure(agent1)
-
-            agent2 = self.env.check_agent_a_pos(agent1.pos_x + agent1.dir_x, agent1.pos_y + agent1.dir_y)
-            if agent2:
-                    agent1.decide(agent2)
-
-            agent1.update()
+            agent1.decide(self.env)
+            agent1.predit()
+            print(agent1.couleur, agent1, agent1.pos_proch_x, agent1.pos_proch_y)
+        for agent in self.env.agents:
+            agent.update()

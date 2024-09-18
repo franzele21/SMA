@@ -33,7 +33,13 @@ config["seed"] = config["seed"] if config["seed"] != 0 else random.random()
 
 rng = np.random.default_rng(config["seed"])
 
-agent_list = mas.create_agent(rng, config["nb_particules"], config["width"], config["height"])
+# agent_list = mas.create_agent(rng, config["nb_particules"], config["width"], config["height"])
+agent_list = [
+    agent.Agent(2, 2, 1, 1),
+    agent.Agent(3, 3, -1, -1),
+    # agent.Agent(0, 0, -1, -1)
+]
+
 
 env = environnement.Environnement(config["width"],
                                   config["height"], 
@@ -48,21 +54,21 @@ window.geometry(f"{win_width}x{win_height}")
 cv = tk.Canvas(window, width=win_width, height=win_height, bg="white")
 cv.pack(expand=True)
 
-if config["trace"]:
-    traceur = {agent_.couleur: [[int(agent_.pos_x), int(agent_.pos_y)]] for agent_ in agent_list}
+# if config["trace"]:
+#     traceur = {agent_.couleur: [[int(agent_.pos_x), int(agent_.pos_y)]] for agent_ in agent_list}
 
 ticks = config["ticks"] if config["ticks"] > 0 else 100000000000000
 for i in range(ticks):
     reset_canva(cv, config["height"], config["width"], config["box_size"])
     for agent_ in env.agents:
-        if config["trace"]:
-            traceur[agent_.couleur].append([int(agent_.pos_x), int(agent_.pos_y)])
+        # if config["trace"]:
+        #     traceur[agent_.couleur].append([int(agent_.pos_x), int(agent_.pos_y)])
         set_agent_on_canva(cv, agent_, config["box_size"])
     time.sleep(config["pause"])
     window.update()
     mas_.run()
 
-print(traceur)
-if config["trace"]:
-    with open("trace.json", "w+", encoding='utf-8') as file:
-        json.dump(traceur, file, ensure_ascii=False, indent=1)
+# print(traceur)
+# if config["trace"]:
+#     with open("trace.json", "w+", encoding='utf-8') as file:
+#         json.dump(traceur, file, ensure_ascii=False, indent=1)
