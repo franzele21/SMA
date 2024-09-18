@@ -1,11 +1,11 @@
 {
     "torus": false,
-    "width": 101,
-    "height": 100,
-    "box_size": 10,
+    "width": 5,
+    "height": 5,
+    "box_size": 100,
     "ticks": 0,
-    "nb_particules": 500,
-    "pause": 0.5,
+    "nb_particules": 10,
+    "pause": 5,
     "seed": 12345,
     "trace": true
 }
