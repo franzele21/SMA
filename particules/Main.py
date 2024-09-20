@@ -41,8 +41,9 @@ def main():
     num_turns = config["nbTicks"]
     trace = config["trace"]
     cell_size = config["view"]["boxSize"]
+    seed = config["seed"]
     env = Environment(w, h, cell_size, torus=False)
-    mas = MAS(env, nb_agents, trace)
+    mas = MAS(env, nb_agents, seed, trace)
     mas.run_simulation(num_turns)
     env.run_gui()
 

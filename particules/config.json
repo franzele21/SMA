@@ -7,6 +7,6 @@
     "nbTicks": 20,
     "nbParticles": 5,
     "pause": 1,
-    "seed": 12345,
+    "seed": 123457,
     "trace": true
   }
