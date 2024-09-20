@@ -1,8 +1,6 @@
 import numpy as np
 import time
 from Agent import Agent
-import sys
-sys.path.append("..")
 from core.GenericMAS import GenericMAS 
 
 class MAS(GenericMAS):

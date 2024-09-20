@@ -1,8 +1,6 @@
 import tkinter as tk
-import random
 
 class GenericEnvironment:
-    
     def __init__(self, width, height, cell_size, torus=False):
         self.width = width
         self.height = height

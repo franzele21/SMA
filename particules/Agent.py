@@ -1,6 +1,3 @@
-import random
-import sys
-sys.path.append("..")
 from core.GenericAgent import GenericAgent
 
 class Agent(GenericAgent):
@@ -35,6 +32,3 @@ class Agent(GenericAgent):
                 break
 
         self.pos_x, self.pos_y = new_x, new_y
-
-    def get_color(self):
-        return self.color

@@ -10,3 +10,6 @@ class GenericAgent(ABC):
     @abstractmethod
     def decide(self, environement):
         pass
+
+    def get_color(self):
+        return self.color

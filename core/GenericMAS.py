@@ -1,8 +1,6 @@
 from abc import ABC, abstractmethod
-import numpy as np
 
 class GenericMAS:
-
     def __init__(self, env, num_agents, seed, trace=False):
         self.environment = env
         self.trace = trace

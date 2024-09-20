@@ -1,7 +1,3 @@
-import tkinter as tk
-import random
-import sys
-sys.path.append("..")
 from core.GenericEnvironment import GenericEnvironment 
 
 class Environment(GenericEnvironment):
