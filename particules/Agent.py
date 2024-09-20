@@ -4,8 +4,10 @@ sys.path.append("..")
 from core.GenericAgent import GenericAgent
 
 class Agent(GenericAgent):
-    def __init__(self, pos_x, pos_y, color="gray", trace=False):
+    def __init__(self, pos_x, pos_y, dir_x, dir_y, color="gray", trace=False):
         super().__init__(pos_x, pos_y, color, trace)
+        self.dir_x = dir_x
+        self.dir_y = dir_y
 
     def decide(self, environment):
         new_x = (self.pos_x + self.dir_x) % environment.width if environment.torus else self.pos_x + self.dir_x

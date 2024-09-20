@@ -24,4 +24,9 @@ class MAS(GenericMAS):
             y = prng.integers(0, self.environment.height - 1)
             if (x, y) not in positions:
                 positions.add((x, y))
-                self.agent_list.append(Agent(x, y, prng.choice(["blue", "brown", "grey", "red", "yellow", "cyan", "green", "pink", "purple", "black", "orange"]), self.trace))
+                color = prng.choice(["blue", "brown", "grey", "red", "yellow", "cyan", "green", "pink", "purple", "black", "orange"])
+                self.agent_list.append(Agent(x, y, 
+                                             prng.choice([-1, 0, 1]),
+                                             prng.choice([-1, 0, 1]),
+                                             color, 
+                                             self.trace))
