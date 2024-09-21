@@ -1,0 +1,13 @@
+{
+    "width": 20,
+    "height": 20,
+    "view": {
+      "boxSize": 50
+    },
+    "nbTicks": 20,
+    "nbFish": 5,
+    "nbShark": 0,
+    "pause": 1,
+    "seed": 123456,
+    "trace": true
+  }

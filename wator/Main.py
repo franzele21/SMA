@@ -42,7 +42,8 @@ The json file must have this format:
         config['view'] = config.get('view', {})
         config['view']['boxSize'] = int(config['view'].get('boxSize', 10))
         config['nbTicks'] = int(config.get('nbTicks', 0))
-        config['nbParticles'] = int(config.get('nbParticles', 100))
+        config['nbFish'] = int(config.get('nbFish', 5))
+        config['nbShark'] = int(config.get('nbShark', 1))
         config['pause'] = float(config.get('pause', 0.1))
         config['seed'] = int(config.get('seed', 0))
         config['trace'] = bool(config.get('trace', False))
@@ -63,13 +64,22 @@ def main():
     print(config)
     w = config['width']
     h = config['height']
-    nb_agents = config['nbParticles']
+    nb_poissons = config['nbFish']
+    nb_requins = config["nbShark"]
     num_turns = config["nbTicks"]
     trace = config["trace"]
     cell_size = config["view"]["boxSize"]
     seed = config["seed"]
+
+
+############################### A SUPPRIMER ###############################
+    gest_poissons = 2
+    gest_requins = 5
+    faim_requins = 3
+###########################################################################
+
     env = Environment(w, h, cell_size, torus=False)
-    mas = MAS(env, nb_agents, seed, trace)
+    mas = MAS(env, nb_poissons, nb_requins, gest_poissons, gest_requins, faim_requins, seed, trace)
     mas.run_simulation(num_turns)
     env.run_gui()
 
