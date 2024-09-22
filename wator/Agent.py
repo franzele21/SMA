@@ -1,9 +1,7 @@
 """
 TODO:
     - prng dans le le choix de direction
-    - décompte gestation/faim
     - généralisation de poissons/requin into creature_marine
-    - mettre une variable eaten pour les poissons pour dire quil a été mangé par un requin pour que pas deux requins mange le meme poisson
 """
 
 
@@ -16,22 +14,23 @@ class Poisson(GenericAgent):
         self.gestation_max = gestation
         self.gestation_act = gestation
         self.deplace = False
+        self.mort = False
     
     def decide(self, environement):
         # Se déplacent aléatoirement
         self.deplace = False
         self.gestation_act -= 1
-        tout_agent = [agent for liste in environement.mas.agent_list for agent in liste]
+        tout_agent = [agent for agent in environement.mas.agent_list]
         agent_proche = [(agent.pos_x, agent.pos_y) for agent in tout_agent if 
                             agent.pos_x in [self.pos_x-1, self.pos_x, self.pos_x+1] 
-                            and agent.pos_y in [self.pos_y-1, self.pos_y, self.pos_y+1]]
+                            and agent.pos_y in [self.pos_y-1, self.pos_y, self.pos_y+1]
+                            and not agent.mort]
 
-        deplacement_possible = [(x, y) for x in range(-1, 2) for y in range(-1, 2)]
+        deplacement_possible = [(x+self.pos_x, y+self.pos_y) for x in range(-1, 2) for y in range(-1, 2)]
         deplacement_possible = [x for x in deplacement_possible if x not in agent_proche]
 
         if len(deplacement_possible)>0:
-            self.deplace = True
-            nouveau_deplacement = deplacement_possible[np.random.randint(len(deplacement_possible)-1)]
+            nouveau_deplacement = deplacement_possible[np.random.randint(len(deplacement_possible))]
 
         # Si leurs période de gestation atteinte + peut se déplacer, 
         # alors bébé nait sur l'ancienne position
@@ -66,9 +65,12 @@ class Requin(GenericAgent):
         self.faim_max = faim                # Nombre d'itérations sans manger possible
         self.faim_act = faim                # Nombre d'itérations restantes sans manger
 
+        self.mort = False
+
     def decide(self, environnement):
         # Si compteur de faim tombe à 0 -> meurt
         if self.meurt:
+            self.mort = True
             return {"mets_bas": False, "meurt": True, "poisson_gobe": None}       # he just like me fr
         
         # Se déplacent vers un poisson proche si il en voit un,
@@ -77,22 +79,27 @@ class Requin(GenericAgent):
         self.gestation_act -= 1
         poisson_mange = None
 
-        poissons = environnement.mas.agent_list[0]
+        poissons = environnement.mas.agent_list
         poissons_proche = [agent for agent in poissons if 
                             agent.pos_x in [self.pos_x-1, self.pos_x, self.pos_x+1] 
-                            and agent.pos_y in [self.pos_y-1, self.pos_y, self.pos_y+1]]
+                            and agent.pos_y in [self.pos_y-1, self.pos_y, self.pos_y+1]
+                            and not agent.mort
+                            and isinstance(agent, Poisson)]
         
         if len(poissons_proche) > 0:
             self.deplace = True
             self.faim_act = self.faim_max
             poisson_mange = np.random.choice(poissons_proche)
+            poisson_mange.mort = True
             nouveau_deplacement = (poisson_mange.pos_x, poisson_mange.pos_y)
         else:
             self.faim_act -= 1
             requins = environnement.mas.agent_list[1]
             requins_proche = [(agent.pos_x, agent.pos_y) for agent in requins if 
                             agent.pos_x in [self.pos_x-1, self.pos_x, self.pos_x+1] 
-                            and agent.pos_y in [self.pos_y-1, self.pos_y, self.pos_y+1]]
+                            and agent.pos_y in [self.pos_y-1, self.pos_y, self.pos_y+1]
+                            and not agent.mort
+                            and isinstance(agent, Requin)]
             deplacement_possible = [(x, y) for x in range(-1, 2) for y in range(-1, 2)]
             deplacement_possible = [x for x in deplacement_possible if x not in requins_proche]
             if len(deplacement_possible) > 0:

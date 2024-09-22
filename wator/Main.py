@@ -60,7 +60,7 @@ The json file must have this format:
         return None
     
 def main():
-    config = read_config(os.path.join("particules", "config.json"))
+    config = read_config(os.path.join("wator", "config.json"))
     print(config)
     w = config['width']
     h = config['height']
@@ -69,6 +69,7 @@ def main():
     num_turns = config["nbTicks"]
     trace = config["trace"]
     cell_size = config["view"]["boxSize"]
+    pause = config["pause"]
     seed = config["seed"]
 
 
@@ -78,8 +79,9 @@ def main():
     faim_requins = 3
 ###########################################################################
 
+    print(nb_requins)
     env = Environment(w, h, cell_size, torus=False)
-    mas = MAS(env, nb_poissons, nb_requins, gest_poissons, gest_requins, faim_requins, seed, trace)
+    mas = MAS(env, nb_poissons, nb_requins, gest_poissons, gest_requins, faim_requins, seed, pause, trace)
     mas.run_simulation(num_turns)
     env.run_gui()
 
