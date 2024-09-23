@@ -19,18 +19,26 @@ config <dict>: All the configuration.
 Notes:
 ------
 The json file must have this format:
-{                               \\
-    "width": <int>,             \\
-    "height": <int>,            \\
-    "view": {                   \\
-      "boxSize": <int>          \\
-    },                          \\
-    "nbTicks": <int>,           \\
-    "nbParticles": <int>,       \\
-    "pause": <int>,             \\
-    "seed": <int>,              \\
-    "trace": true/false         \\
-}
+{
+    "width": <int>,
+    "height": <int>,
+    "view": {
+      "boxSize": <int>
+    },
+    "nbTicks": <int>,
+    "poisson": {
+        "nbpoisson" : <int>,
+        "gest_poisson" : <int> 
+    } ,
+    "requin": {
+        "nbrequin":<int>,
+        "gest_requin":<int>,
+        "faim_requin":<int>
+    },
+    "pause": <int>,
+    "seed": <int>,
+    "trace": <bool>
+  }
     """
     try:
         with open(file_path, 'r') as config_file:

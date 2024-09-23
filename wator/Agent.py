@@ -79,7 +79,7 @@ class Requin(GenericAgent):
         # Si compteur de faim tombe à 0 -> meurt
         if self.meurt():
             self.mort = True
-            return {"mets_bas": False, "meurt": True, "poisson_gobe": None}       # he just like me fr
+            return {"mets_bas": False, "meurt": True, "poisson_gobe": None}       # he just like me fr # NAAAAHH BRO U WILD FOR THAT
         
         # Se déplacent vers un poisson proche si il en voit un,
         # sinon déplacement aléatoire
@@ -93,13 +93,13 @@ class Requin(GenericAgent):
                             and agent.pos_y in [self.pos_y-1, self.pos_y, self.pos_y+1]
                             and not agent.mort
                             and isinstance(agent, Poisson)]
-        
         if len(poissons_proche) > 0:
             self.deplace = True
             self.faim_act = self.faim_max
             poisson_mange = np.random.choice(poissons_proche)
             poisson_mange.mort = True
             nouveau_deplacement = (poisson_mange.pos_x, poisson_mange.pos_y)
+            print("Requin new move eat : ",nouveau_deplacement)
         else:
             self.faim_act -= 1
             requins = environnement.mas.agent_list
@@ -112,18 +112,21 @@ class Requin(GenericAgent):
             deplacement_possible = [x for x in deplacement_possible if x not in requins_proche]
             if len(deplacement_possible) > 0:
                 self.deplace = True
+                print("Déplacement possible : ", deplacement_possible)
                 nouveau_deplacement = deplacement_possible[np.random.randint(len(deplacement_possible)-1)]
-
+            print("Requin new move starve : ",nouveau_deplacement)
         # Si leurs période de gestation atteinte + peut se déplacer,
         # alors bébé nait sur l'ancienne position
         nouveau_ne = self.mets_bas()
-                # Check for collisions with boundaries if not torus
+
         if not environnement.torus:
-            if nouveau_deplacement[0] < 0 or nouveau_deplacement[0] >= environnement.width:
-                nouveau_deplacement[0] = self.pos_x
-            if nouveau_deplacement[1] < 0 or nouveau_deplacement[1] >= environnement.height:
-                nouveau_deplacement[1] = self.pos_y
-        self.pos_x, self.pos_y = nouveau_deplacement
+            if nouveau_deplacement[0] < 0 or nouveau_deplacement[0] > environnement.width:
+                nouveau_deplacement[0] *= -1
+            if nouveau_deplacement[1] < 0 or nouveau_deplacement[1] > environnement.height:
+                nouveau_deplacement[1] *= -1
+        print("Requin new move 3 : ",nouveau_deplacement)
+        self.pos_x += nouveau_deplacement[0]
+        self.pos_y += nouveau_deplacement[1]
         return {"mets_bas": nouveau_ne, "meurt": self.meurt(), "poisson_gobe": poisson_mange} 
 
     def mets_bas(self):

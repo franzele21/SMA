@@ -1,8 +1,8 @@
 {
-    "width": 5,
-    "height": 5,
+    "width": 20,
+    "height": 20,
     "view": {
-      "boxSize": 100
+      "boxSize": 20
     },
     "nbTicks": 200,
     "poisson": {
