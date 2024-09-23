@@ -42,11 +42,15 @@ The json file must have this format:
         config['view'] = config.get('view', {})
         config['view']['boxSize'] = int(config['view'].get('boxSize', 10))
         config['nbTicks'] = int(config.get('nbTicks', 0))
-        config['nbFish'] = int(config.get('nbFish', 5))
-        config['nbShark'] = int(config.get('nbShark', 1))
+        config['poisson']["nbpoisson"] = int(config["poisson"].get('nbpoisson', 5))
+        config['poisson']["gest_poisson"] = int(config["poisson"].get('gest_poisson', 5))
+        config['requin']["nbrequin"] = int(config["requin"].get('nbrequin', 1))
+        config['requin']["gest_requin"] = int(config["requin"].get('gest_requin', 1))
+        config['requin']["faim_requin"] = int(config["requin"].get('faim_requin', 1))
         config['pause'] = float(config.get('pause', 0.1))
         config['seed'] = int(config.get('seed', 0))
         config['trace'] = bool(config.get('trace', False))
+
         
         return config
     except FileNotFoundError:
@@ -60,24 +64,20 @@ The json file must have this format:
         return None
     
 def main():
-    config = read_config(os.path.join("wator", "config.json"))
+    config = read_config(os.path.join(".", "config.json"))
     print(config)
     w = config['width']
     h = config['height']
-    nb_poissons = config['nbFish']
-    nb_requins = config["nbShark"]
+    nb_poissons = config['poisson']['nbpoisson']
+    gest_poissons = config["poisson"]["gest_poisson"]
+    nb_requins = config["requin"]["nbrequin"]
+    gest_requins = config["requin"]["gest_requin"]
+    faim_requins = config["requin"]["faim_requin"]
     num_turns = config["nbTicks"]
     trace = config["trace"]
     cell_size = config["view"]["boxSize"]
     pause = config["pause"]
     seed = config["seed"]
-
-
-############################### A SUPPRIMER ###############################
-    gest_poissons = 2
-    gest_requins = 5
-    faim_requins = 3
-###########################################################################
 
     print(nb_requins)
     env = Environment(w, h, cell_size, torus=False)

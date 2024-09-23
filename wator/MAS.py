@@ -5,6 +5,8 @@ TDOD:
 
 import numpy as np
 import time
+import sys
+sys.path.insert(0, '..')
 from wator.Agent import Poisson, Requin
 from core.GenericMAS import GenericMAS
 
@@ -16,10 +18,10 @@ class MAS(GenericMAS):
         super().__init__(env, [nb_poissons, nb_requins], seed, delay, trace)
 
     def run_turn(self):
+        self.environment.update_display()
         dead_creature = []
         new_creature = []
         for agent in self.agent_list:
-            print(agent.pos_x, agent.pos_y)
             effect = agent.decide(self.environment)
             if effect["mets_bas"]:
                 new_creature.append(effect["mets_bas"])
@@ -29,15 +31,11 @@ class MAS(GenericMAS):
                 dead_creature.append(effect["poisson_gobe"])
 
         for creature in dead_creature:
-            index_ = self.agent_list.index([agent for agent in self.agent_list 
-                      if agent.pos_x == creature.pos_x
-                      and agent.pos_y == creature.pos_y
-                      and agent.mort
-                      and isinstance(agent, type(creature))][0])
+            index_ = self.agent_list.index(creature)
             del self.agent_list[index_]
         for creature in new_creature:
             self.agent_list.append(creature)
-        self.environment.update_display()
+        
         time.sleep(self.delay)  # Add delay after each turn
         # ^^^^?????????
 
@@ -59,4 +57,3 @@ class MAS(GenericMAS):
                     positions.add((x, y))
                     self.agent_list.append(agent_type(x, y, gestation=arg_type[0], faim=arg_type[1], trace=self.trace))
                     added_agent += 1
-        print(self.agent_list)

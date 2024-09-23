@@ -4,7 +4,8 @@ TODO:
     - généralisation de poissons/requin into creature_marine
 """
 
-
+import sys
+sys.path.insert(0, '..')
 from core.GenericAgent import GenericAgent
 import numpy as np
 
@@ -16,22 +17,29 @@ class Poisson(GenericAgent):
         self.deplace = False
         self.mort = False
     
-    def decide(self, environement):
+    def decide(self, environnement):
         # Se déplacent aléatoirement
         self.deplace = False
         self.gestation_act -= 1
-        tout_agent = [agent for agent in environement.mas.agent_list]
+        tout_agent = [agent for agent in environnement.mas.agent_list]
         agent_proche = [(agent.pos_x, agent.pos_y) for agent in tout_agent if 
                             agent.pos_x in [self.pos_x-1, self.pos_x, self.pos_x+1] 
                             and agent.pos_y in [self.pos_y-1, self.pos_y, self.pos_y+1]
                             and not agent.mort]
 
-        deplacement_possible = [(x+self.pos_x, y+self.pos_y) for x in range(-1, 2) for y in range(-1, 2)]
+        deplacement_possible = [[x+self.pos_x, y+self.pos_y] for x in range(-1, 2) for y in range(-1, 2)]
         deplacement_possible = [x for x in deplacement_possible if x not in agent_proche]
 
         if len(deplacement_possible)>0:
+            self.deplace = True
             nouveau_deplacement = deplacement_possible[np.random.randint(len(deplacement_possible))]
 
+        # Check for collisions with boundaries if not torus
+        if not environnement.torus:
+            if nouveau_deplacement[0] < 0 or nouveau_deplacement[0] >= environnement.width:
+                nouveau_deplacement[0] = self.pos_x
+            if nouveau_deplacement[1] < 0 or nouveau_deplacement[1] >= environnement.height:
+                nouveau_deplacement[1] = self.pos_y
         # Si leurs période de gestation atteinte + peut se déplacer, 
         # alors bébé nait sur l'ancienne position
         nouveau_ne = self.mets_bas()
@@ -69,7 +77,7 @@ class Requin(GenericAgent):
 
     def decide(self, environnement):
         # Si compteur de faim tombe à 0 -> meurt
-        if self.meurt:
+        if self.meurt():
             self.mort = True
             return {"mets_bas": False, "meurt": True, "poisson_gobe": None}       # he just like me fr
         
@@ -94,13 +102,13 @@ class Requin(GenericAgent):
             nouveau_deplacement = (poisson_mange.pos_x, poisson_mange.pos_y)
         else:
             self.faim_act -= 1
-            requins = environnement.mas.agent_list[1]
-            requins_proche = [(agent.pos_x, agent.pos_y) for agent in requins if 
+            requins = environnement.mas.agent_list
+            requins_proche = [[agent.pos_x, agent.pos_y] for agent in requins if 
                             agent.pos_x in [self.pos_x-1, self.pos_x, self.pos_x+1] 
                             and agent.pos_y in [self.pos_y-1, self.pos_y, self.pos_y+1]
                             and not agent.mort
                             and isinstance(agent, Requin)]
-            deplacement_possible = [(x, y) for x in range(-1, 2) for y in range(-1, 2)]
+            deplacement_possible = [[x, y] for x in range(-1, 2) for y in range(-1, 2)]
             deplacement_possible = [x for x in deplacement_possible if x not in requins_proche]
             if len(deplacement_possible) > 0:
                 self.deplace = True
@@ -109,9 +117,14 @@ class Requin(GenericAgent):
         # Si leurs période de gestation atteinte + peut se déplacer,
         # alors bébé nait sur l'ancienne position
         nouveau_ne = self.mets_bas()
-        
+                # Check for collisions with boundaries if not torus
+        if not environnement.torus:
+            if nouveau_deplacement[0] < 0 or nouveau_deplacement[0] >= environnement.width:
+                nouveau_deplacement[0] = self.pos_x
+            if nouveau_deplacement[1] < 0 or nouveau_deplacement[1] >= environnement.height:
+                nouveau_deplacement[1] = self.pos_y
         self.pos_x, self.pos_y = nouveau_deplacement
-        return {"mets_bas": nouveau_ne, "meurt": self.meurt, "poisson_gobe": poisson_mange} 
+        return {"mets_bas": nouveau_ne, "meurt": self.meurt(), "poisson_gobe": poisson_mange} 
 
     def mets_bas(self):
         if self.deplace and self.gestation_act == 0:

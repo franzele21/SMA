@@ -1,3 +1,5 @@
+import sys
+sys.path.insert(0, '..')
 from core.GenericEnvironment import GenericEnvironment
 
 class Environment(GenericEnvironment):
