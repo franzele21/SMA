@@ -13,7 +13,7 @@ class GenericEnvironment:
 
         self.root = tk.Tk()
         self.root.title("Multi-Agent System Simulation")
-        self.canvas = tk.Canvas(self.root, width=self.canvas_width, height=self.canvas_height)
+        self.canvas = tk.Canvas(self.root, width=self.canvas_width, height=self.canvas_height, background="blue")
         self.canvas.pack()
 
     def draw_grid(self):

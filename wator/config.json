@@ -6,15 +6,15 @@
     },
     "nbTicks": 200,
     "poisson": {
-        "nbpoisson" : 1,
-        "gest_poisson" : 5 
+        "nbpoisson" : 5,
+        "gest_poisson" : 3
     } ,
     "requin": {
-        "nbrequin":1,
-        "gest_requin":5,
-        "faim_requin":4
+        "nbrequin":5,
+        "gest_requin":3,
+        "faim_requin":5
     },
-    "pause": 1,
+    "pause": 0.1,
     "seed": 12346,
     "trace": true
   }

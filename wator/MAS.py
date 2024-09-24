@@ -15,9 +15,11 @@ class MAS(GenericMAS):
         self.gest_pois = gest_pois
         self.gest_requ = gest_requ
         self.faim_requ = faim_requ
+        print(self.faim_requ)
         super().__init__(env, [nb_poissons, nb_requins], seed, delay, trace)
 
     def run_turn(self):
+        
         self.environment.update_display()
         dead_creature = []
         new_creature = []
@@ -34,7 +36,21 @@ class MAS(GenericMAS):
             index_ = self.agent_list.index(creature)
             del self.agent_list[index_]
         for creature in new_creature:
-            self.agent_list.append(creature)
+            if len(self.agent_list) < self.environment.height*self.environment.width:
+                self.agent_list.append(creature)
+
+        creature_index = []
+        for i in range(len(self.agent_list)-1):
+            for j in range(i+1, len(self.agent_list)):
+                if self.agent_list[i].pos_x == self.agent_list[j].pos_x \
+                        and self.agent_list[i].pos_y == self.agent_list[j].pos_y:
+                    if isinstance(self.agent_list[i], Poisson):
+                        creature_index.append(i)
+                    else:
+                        creature_index.append(j)
+        for i, x in enumerate(creature_index):
+            del self.agent_list[x-i]
+        
         
         time.sleep(self.delay)  # Add delay after each turn
         # ^^^^?????????
@@ -53,7 +69,6 @@ class MAS(GenericMAS):
                 x = prng.integers(0, self.environment.width - 1)
                 y = prng.integers(0, self.environment.height - 1)
                 if (x, y) not in positions:
-                    print((x, y))
                     positions.add((x, y))
                     self.agent_list.append(agent_type(x, y, gestation=arg_type[0], faim=arg_type[1], trace=self.trace))
                     added_agent += 1
