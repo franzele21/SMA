@@ -19,7 +19,6 @@ class MAS(GenericMAS):
         super().__init__(env, [nb_poissons, nb_requins], seed, delay, trace)
 
     def run_turn(self):
-        
         self.environment.update_display()
         dead_creature = []
         new_creature = []
@@ -33,8 +32,12 @@ class MAS(GenericMAS):
                 dead_creature.append(effect["poisson_gobe"])
 
         for creature in dead_creature:
-            index_ = self.agent_list.index(creature)
-            del self.agent_list[index_]
+            # faudrait trouver l'erreur "ValueError: <wator.Agent.Poisson object at 0x...> is not in list" dans le long terme
+            try:
+                index_ = self.agent_list.index(creature)
+                del self.agent_list[index_]
+            except:
+                pass
         for creature in new_creature:
             if len(self.agent_list) < self.environment.height*self.environment.width:
                 self.agent_list.append(creature)
@@ -50,10 +53,10 @@ class MAS(GenericMAS):
                         creature_index.append(j)
         for i, x in enumerate(creature_index):
             del self.agent_list[x-i]
-        
+
+        self.actualise_position()
         
         time.sleep(self.delay)  # Add delay after each turn
-        # ^^^^?????????
 
     def initialize_agents(self, num_agents, seed):
         positions = set()

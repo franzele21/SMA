@@ -21,11 +21,9 @@ class Poisson(GenericAgent):
         # Se déplacent aléatoirement
         self.deplace = False
         self.gestation_act -= 1
-        tout_agent = [agent for agent in environnement.mas.agent_list]
-        agent_proche = [(agent.pos_x, agent.pos_y) for agent in tout_agent if 
-                            agent.pos_x in [self.pos_x-1, self.pos_x, self.pos_x+1] 
-                            and agent.pos_y in [self.pos_y-1, self.pos_y, self.pos_y+1]
-                            and not agent.mort]
+
+        agent_proche = environnement.mas.voisinage(self.pos_x, self.pos_y, 1)
+        agent_proche = [agent for agent in agent_proche if not agent.mort]
 
         deplacement_possible = [[x, y] for x in range(-1, 2) for y in range(-1, 2)]
         deplacement_possible = [x for x in deplacement_possible if x not in agent_proche]
@@ -35,7 +33,6 @@ class Poisson(GenericAgent):
             nouveau_deplacement = deplacement_possible[np.random.randint(len(deplacement_possible))]
 
         if not environnement.torus:
-            
             if self.pos_x +nouveau_deplacement[0] < 0 or self.pos_x+nouveau_deplacement[0] > environnement.width-1:
                 nouveau_deplacement[0] = 0
             if self.pos_y +nouveau_deplacement[1] < 0 or self.pos_y+nouveau_deplacement[1] > environnement.height-1:
@@ -89,12 +86,10 @@ class Requin(GenericAgent):
         self.gestation_act -= 1
         poisson_mange = None
 
-        poissons = environnement.mas.agent_list
-        poissons_proche = [agent for agent in poissons if 
-                            agent.pos_x in [self.pos_x-1, self.pos_x, self.pos_x+1] 
-                            and agent.pos_y in [self.pos_y-1, self.pos_y, self.pos_y+1]
-                            and not agent.mort
-                            and isinstance(agent, Poisson)]
+
+        poissons = environnement.mas.voisinage(self.pos_x, self.pos_y, 1)
+        poissons_proche = [agent for agent in poissons if not agent.mort and isinstance(agent, Poisson)]
+
         if len(poissons_proche) > 0:
             self.deplace = True
             self.faim_act = self.faim_max
@@ -105,12 +100,10 @@ class Requin(GenericAgent):
             nouveau_deplacement = [0,0]
         else:
             self.faim_act -= 1
-            requins = environnement.mas.agent_list
-            requins_proche = [[agent.pos_x, agent.pos_y] for agent in requins if 
-                            agent.pos_x in [self.pos_x-1, self.pos_x, self.pos_x+1] 
-                            and agent.pos_y in [self.pos_y-1, self.pos_y, self.pos_y+1]
-                            and not agent.mort
-                            and isinstance(agent, Requin)]
+
+            requins = environnement.mas.voisinage(self.pos_x, self.pos_y, 1)
+            requins_proche = [agent for agent in requins if not agent.mort and isinstance(agent, Requin)]
+
             deplacement_possible = [[x, y] for x in range(-1, 2) for y in range(-1, 2)]
             deplacement_possible = [x for x in deplacement_possible if x not in requins_proche]
             if len(deplacement_possible) > 0:
