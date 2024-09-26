@@ -1,20 +1,20 @@
 {
-    "width": 5,
-    "height": 5,
+    "width": 500,
+    "height": 500,
     "view": {
-      "boxSize": 100
+      "boxSize": 2
     },
     "nbTicks": 200,
     "poisson": {
-        "nbpoisson" : 2,
+        "nbpoisson" : 200,
         "gest_poisson" : 2
     } ,
     "requin": {
-        "nbrequin":1,
+        "nbrequin":100,
         "gest_requin":4,
         "faim_requin":6
     },
-    "pause": 0.5,
+    "pause": 0.01,
     "seed": 12346,
     "trace": true
   }

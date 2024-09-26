@@ -42,6 +42,8 @@ class GenericMAS:
         return voisins
 
     def actualise_position(self):
+        self.agents_x = [[] for x in range(self.environment.width)]
+        self.agents_y = [[] for x in range(self.environment.height)]
         for agent_ in self.agent_list:
             self.agents_x[agent_.pos_x].append(agent_)
             self.agents_y[agent_.pos_y].append(agent_)
