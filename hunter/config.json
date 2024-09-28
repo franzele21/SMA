@@ -1,0 +1,11 @@
+{
+    "width": 50,
+    "height": 50,
+    "view": {
+      "boxSize": 20
+    },
+    "nbTicks": 200,
+    "pause": 0.01,
+    "seed": 12346,
+    "trace": true
+  }
