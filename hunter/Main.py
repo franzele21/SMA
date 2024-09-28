@@ -53,6 +53,7 @@ The json file must have this format:
         config['nbTicks'] = int(config.get('nbTicks', 0))
         config['pause'] = float(config.get('pause', 0.1))
         config['seed'] = int(config.get('seed', 0))
+        config['degradation'] = float(config.get('degradation', 0.1))
         config['trace'] = bool(config.get('trace', False))
 
         
@@ -77,10 +78,12 @@ def main():
     cell_size = config["view"]["boxSize"]
     pause = config["pause"]
     seed = config["seed"]
+    degradation = config["degradation"]
 
     env = Environment(w, h, cell_size, torus=False)
     mas = MAS(env, seed, pause, trace)
-    mas.pose_murs(maze.Maze(w, h).grid)
+    print(f"{degradation=}")
+    mas.pose_murs(maze.Maze(w, h).grid, degradation)
     mas.run_simulation(num_turns)
     env.run_gui()
 

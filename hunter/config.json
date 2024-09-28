@@ -4,6 +4,7 @@
     "view": {
       "boxSize": 20
     },
+    "degradation": 0.35,
     "nbTicks": 200,
     "pause": 0.01,
     "seed": 12346,

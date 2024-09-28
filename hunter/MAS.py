@@ -16,16 +16,15 @@ class MAS(GenericMAS):
         
         time.sleep(self.delay)  # Add delay after each turn
 
-
-    def pose_murs(self, murs):
+    def pose_murs(self, murs, degradation):
         for pos_y in range(len(murs)):
             for pos_x in range(len(murs[0])):
-                if murs[pos_y][pos_x]:
+                if murs[pos_y][pos_x] and self.prng.random() > degradation:
                     self.agent_list.append(Mur(pos_x, pos_y))
 
     def initialize_agents(self, num_agents, seed):
         positions = set()
-        prng = np.random.default_rng(seed)
+        self.prng = np.random.default_rng(seed)
 
 
 
