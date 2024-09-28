@@ -6,7 +6,7 @@
     },
     "degradation": 0.35,
     "nbTicks": 200,
-    "pause": 0.01,
+    "pause": 1,
     "seed": 12346,
     "trace": true
   }

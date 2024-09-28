@@ -12,7 +12,7 @@ class MAS(GenericMAS):
     def run_turn(self):
         self.environment.update_display()
 
-        # IMPLEMENTER
+        self.avatar.decide(self.environment)        
         
         time.sleep(self.delay)  # Add delay after each turn
 
@@ -25,6 +25,8 @@ class MAS(GenericMAS):
     def initialize_agents(self, num_agents, seed):
         positions = set()
         self.prng = np.random.default_rng(seed)
+        self.avatar = Avatar(0, 0)
+        self.agent_list.append(self.avatar)
 
 
 
