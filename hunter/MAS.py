@@ -13,7 +13,7 @@ class MAS(GenericMAS):
         self.environment.update_display()
 
         self.avatar.decide(self.environment)        
-        
+        self.hunter.decide(self.environment)
         time.sleep(self.delay)  # Add delay after each turn
 
     def pose_murs(self, murs, degradation):
@@ -21,12 +21,15 @@ class MAS(GenericMAS):
             for pos_x in range(len(murs[0])):
                 if murs[pos_y][pos_x] and self.prng.random() > degradation:
                     self.agent_list.append(Mur(pos_x, pos_y))
+        self.actualise_position()
 
     def initialize_agents(self, num_agents, seed):
         positions = set()
         self.prng = np.random.default_rng(seed)
         self.avatar = Avatar(0, 0)
+        self.hunter = Hunter(self.environment.width-1, self.environment.height-1)
         self.agent_list.append(self.avatar)
+        self.agent_list.append(self.hunter)
 
 
 

@@ -10,7 +10,9 @@ class Environment(GenericEnvironment):
         self.root.bind("<Right>", lambda event: self.change_direction("E"))
         self.root.bind("<Down>", lambda event: self.change_direction("S"))
         self.root.bind("<Up>", lambda event: self.change_direction("N"))
-    
+
     def change_direction(self, direction):
         self.dir = direction
         print("env", self.dir)
+
+    
