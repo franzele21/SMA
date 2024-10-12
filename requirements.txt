@@ -1,0 +1,8 @@
+heapq
+colorsys
+tkinter
+maze
+json
+numpy
+PIL
+requests
