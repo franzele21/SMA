@@ -1,120 +1,120 @@
 # 🎮 SMA - Simulations
 
-## 👥 Auteurs
+## 👥 Authors
 
-Ce projet a été réalisé en binôme par :
-- 🧑‍💻 [LAGUE Pierre]
-- 👩‍💻 [MULLER François]
+This project was completed as a pair by:
+- 🧑‍💻 [Pierre LAGUE]
+- 👩‍💻 [François MULLER]
 
-Dans le cadre du cours de [SMA] à [Université de Lille].
+As part of the [SMA] course at [Université de Lille].
 
-## 🚀 Déploiement / Compilation
+## 🚀 Deployment / Compilation
 
 ### 🛠️ Compilation
 
-1. Assurez-vous d'avoir Python 3.x installé sur votre système.
-2. Clonez le dépôt :
+1. Ensure you have Python 3.x installed on your system.
+2. Clone the repository:
    ```
    git clone https://github.com/franzele21/SMA.git
    ```
-3. Naviguez vers le répertoire du projet :
+3. Navigate to the project directory:
    ```
-   cd hunter # si vous voulez la simulation hunter
-   cd particules # si vous voulez la simulation particules
-   cd wator # si vous voulez la simulation wator
+   cd hunter # if you want the hunter simulation
+   cd particules # if you want the particles simulation
+   cd wator # if you want the wator simulation
    ```
-4. Installez les dépendances requises :
+4. Install the required dependencies:
    ```
    pip install -r requirements.txt
    ```
 
-### 🏃‍♂️ Lancement
+### 🏃‍♂️ Running
 
-Pour lancer la simulation, situez vous dans le dossier de la simulation en question et exécutez :
+To run the simulation, navigate to the folder of the desired simulation and execute:
 ```
 python Main.py
 ```
 
-### ⚙️ Changement des paramètres
+### ⚙️ Changing Parameters
 
-Les paramètres principaux se trouvent dans le fichier `config.py`. Voici quelques exemples de modifications :
+The main parameters are found in the `config.py` file. Here are some examples of modifications:
 
-1. Changer la taille de la grille ou la seed:
+1. Change the grid size or the seed:
    ```python
    width = 20
    height = 20
    seed = 1234567
    ```
 
-2. Modifier la densité des obstacles (hunter simulation seulement) :
+2. Modify the obstacle density (hunter simulation only):
    ```python
-   degradation = 0.3  # 30% de la grille sera occupée par des obstacles
+   degradation = 0.3  # 30% of the grid will be occupied by obstacles
    ```
 
-3. Ajuster la vitesse de la simulation :
+3. Adjust the speed of the simulation:
    ```python
-   pause = 0.5  # Pause de 0.5 secondes entre chaque tour
+   pause = 0.5  # Pause of 0.5 seconds between each round
    ```
 
-4. Ajouter le nombre d'agents dans la simulation (particules):
+4. Add the number of agents in the simulation (particles):
    ```python
    nbParticles = 100
    ```
-5. Lancer la trace de la simulation (particules et wator seulement):
+5. Enable simulation trace (particles and wator only):
    ```python
    trace = True
    ```
-6. Modifier la période de gestation, la limite de faim des requins ou des poissons (wator seulement):
+6. Modify the gestation period, hunger limit for sharks, or for fish (wator only):
    ```python
    gest_poisson = 2
    gest_requins = 3
    faim_requins = 6
    ```
-   
-## 🌟 Configurations remarquables
 
-1. 🏞️ Labyrinthe complexe généré à l'aide de l'algorithme de Prim (simulation hunter:
+## 🌟 Notable Configurations
+
+1. 🏞️ Complex Maze Generated Using Prim’s Algorithm (hunter simulation):
    ```python
    width = 30
    height = 30
    degradation = 0.4
    ```
-   Cette configuration crée un environnement de type labyrinthe, mettant à l'épreuve l'algorithme de pathfinding du Hunter.
+   This configuration creates a maze-like environment, testing the pathfinding algorithm of the Hunter.
 
-2. 🏎️ Avatar dirigé par l'utilisateur :
-   Avec les flèches "gauche", "droite", "haut", "bas", l'utilisateur peut diriger son avatar à travers la grille.
-   Cette configuration offre une expérience de jeu rapide et intense avec une fenêtre de Game Over unique ! (aurez-vous le easter egg ... heheheheh ??)
+2. 🏎️ User-Controlled Avatar:
+   Using the arrow keys ("left", "right", "up", "down"), the user can navigate their avatar through the grid.
+   This configuration offers a fast-paced and intense gameplay experience with a single Game Over screen! (Will you find the Easter egg ... heheheheh ??)
 
-3. 🧠 Test d'intelligence du Hunter :
-   Un algorithme de type PathFinder A* à été implémenté pour le hunter ainsi qu'une fonction qui permet de visualiser le gradient d'optimalité du chemin prévu.
+3. 🧠 Hunter Intelligence Test:
+   A PathFinder A* algorithm has been implemented for the Hunter along with a function to visualize the optimality gradient of the planned path.
    ![image](https://github.com/user-attachments/assets/2c282e08-0587-4b6a-b409-c8e12e182610)
-   Ces paramètres poussent le Hunter à calculer plus de chemins potentiels et à planifier plus loin dans le futur.
+   These parameters push the Hunter to calculate more potential paths and plan further into the future.
 
-4. 🐟 Une visualisation intéressante de la simulation wator:
-   Les poissons, si mis à nombre égal ou supérieur aux requins, gagnent toujout la simulation.
+4. 🐟 An Interesting Visualization of the Wator Simulation:
+   If fish are set to an equal or higher number than sharks, they will always win the simulation.
 
-5. 💻 Une très bonne utilisation du package core avec une généralisation optimisée
-   Dans chacune de nos simulations nous faisons appel au package core. qui représente les classes génériques de nos simulations. La classe GenericEnvironement est très complète et complètement modulable pour chacune des simulations.
-   Nous avons aussi respecté le paradigme de programmation orientée objets ce qui rend le code très compréhensible.
-   
-## 🐛 Bugs et améliorations
+5. 💻 Excellent Use of the Core Package with Optimized Generalization:
+   In each of our simulations, we use the core package, which represents the generic classes of our simulations. The `GenericEnvironment` class is very complete and fully modular for each simulation.
+   We also adhered to the object-oriented programming paradigm, making the code highly understandable.
 
-### Bugs connus :
+## 🐛 Bugs and Improvements
+
+### Known Bugs:
 
 - Hunter
-  - 🐞 Parfois, le Hunter peut rester bloqué dans un coin si l'Avatar est inaccessible.
-  - 🐞 Dans de rares cas, la génération d'obstacles peut créer des zones inaccessibles.
-  - 🐞 La génération de labyrinthe peut enferme l'Avatar.
+  - 🐞 Sometimes, the Hunter can get stuck in a corner if the Avatar is inaccessible.
+  - 🐞 In rare cases, obstacle generation can create inaccessible zones.
+  - 🐞 Maze generation can trap the Avatar.
 - Wator
-  - 🐛 L'environnement python ne permet pas de faire une simulation très optimisée, nous ne pouvons donc pas forcément mettre beaucoup d'agents dans la simulation.
-  - 🐛 Nous n'arrivons pas à trouver le pattern de sinusoïdes d'apparition et disparition des agents.
+  - 🐛 The Python environment doesn't allow for highly optimized simulations, so we can't add a large number of agents to the simulation.
+  - 🐛 We haven't been able to find the sinusoidal pattern of agent appearance and disappearance.
 
-### Améliorations futures :
-- 🚀 Implémenter un mode multijoueur permettant à deux joueurs de contrôler le Hunter et l'Avatar.
-- 🎨 Ajouter des thèmes visuels personnalisables pour l'environnement.
-- 📊 Intégrer un système de score et de classement.
-- 🧪 Créer différents types d'obstacles avec des effets variés sur le mouvement des agents.
-- 🚒 Utiliser un autre type de moteur de visualisation que celui de Python pour pouvoir mettre des milliers d'agents dans wator et particules.
+### Future Improvements:
+- 🚀 Implement a multiplayer mode allowing two players to control the Hunter and the Avatar.
+- 🎨 Add customizable visual themes for the environment.
+- 📊 Integrate a scoring and ranking system.
+- 🧪 Create different types of obstacles with various effects on agent movement.
+- 🚒 Use a different visualization engine than Python to allow for thousands of agents in the wator and particle simulations.
 
 ---
 
