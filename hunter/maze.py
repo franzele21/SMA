@@ -100,6 +100,9 @@ class Maze:
         x, y = (self.prng.integers(0, self._width-1), random.randint(0, self._height-1))
         self.grid[x][y] = True
         self.grid[0][0] = True
+        self.grid[0][1] = True
+        self.grid[1][0] = True
+        self.grid[1][1] = True
         self.grid[self._width-1, self._height-1]
         fs = self.__frontier(x, y)
         for f in fs:

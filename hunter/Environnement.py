@@ -37,15 +37,9 @@ class Environment(GenericEnvironment):
                     
                     self.canvas.create_rectangle(
                         x * self.cell_size, y * self.cell_size,
-                        (x + 1) * self.cell_size, (y + 1) * self.cell_size,
+                        (x + 10) * self.cell_size, (y + 10) * self.cell_size,
                         fill=color, outline="", tags="path"
                     )
-
-        # Draw grid
-        # for i in range(0, self.canvas_width, self.cell_size):
-        #     self.canvas.create_line(i, 0, i, self.canvas_height, fill="lightgray")
-        # for i in range(0, self.canvas_height, self.cell_size):
-        #     self.canvas.create_line(0, i, self.canvas_width, i, fill="lightgray")
 
         # Draw all agents
         for agent in self.mas.agent_list:
