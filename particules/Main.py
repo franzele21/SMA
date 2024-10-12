@@ -33,7 +33,7 @@ def read_config(file_path):
 
 
 def main():
-    config = read_config(os.path.join("particules", "config.json"))
+    config = read_config(os.path.join(".", "config.json"))
     print(config)
     w = config['width']
     h = config['height']

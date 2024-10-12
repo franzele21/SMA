@@ -1,6 +1,8 @@
 import numpy as np
 import time
 from Agent import Agent
+import sys
+sys.path.insert(0, '..')
 from core.GenericMAS import GenericMAS 
 
 class MAS(GenericMAS):
@@ -12,7 +14,7 @@ class MAS(GenericMAS):
         for agent in self.agent_list:
             agent.decide(self.environment)
         self.environment.update_display()
-        time.sleep(self.delay)  # Add delay after each turn
+        time.sleep(0.1)  # Add delay after each turn
 
     def initialize_agents(self, num_agents, seed):
         positions = set()
