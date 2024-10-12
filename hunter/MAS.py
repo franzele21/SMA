@@ -10,10 +10,16 @@ class MAS(GenericMAS):
         super().__init__(env, None, seed, delay, trace)
 
     def run_turn(self):
-        self.environment.update_display()
+        if not self.environment.game_over:
+            self.avatar.decide(self.environment)        
+            self.hunter.decide(self.environment)
+            
+            # Check for game over condition
+            if self.hunter.pos_x == self.avatar.pos_x and self.hunter.pos_y == self.avatar.pos_y:
+                self.environment.game_over = True
+                print("Game Over! Hunter caught the Avatar.")
 
-        self.avatar.decide(self.environment)        
-        self.hunter.decide(self.environment)
+        self.environment.update_display()
         time.sleep(self.delay)  # Add delay after each turn
 
     def pose_murs(self, murs, degradation):

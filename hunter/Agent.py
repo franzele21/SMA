@@ -7,17 +7,20 @@ import heapq
 
 
 class Mur(GenericAgent):
-    def __init__(self, pos_x, pos_y, color="black", trace=False):
+    def __init__(self, pos_x, pos_y, color="white", trace=False):
         super().__init__(pos_x, pos_y, color, trace)
 
     def decide(self, environnement):
         pass
+
+import heapq
 
 class Hunter(GenericAgent):
     def __init__(self, pos_x, pos_y, color="red", trace=False):
         super().__init__(pos_x, pos_y, color, trace)
         self.dir_x = 0
         self.dir_y = 0
+        self.potential_paths = []
 
     def manhattan(self, a, b):
         return sum(abs(val1-val2) for val1, val2 in zip(a,b))
@@ -36,46 +39,42 @@ class Hunter(GenericAgent):
                 return False
         return True
 
-    def astar(self, start, goal, environnement):
-        heap = [(0, start)]
-        came_from = {}
-        g_score = {start: 0}
-        f_score = {start: self.manhattan(start, goal)}
+    def astar(self, start, goal, environnement, max_paths=5, max_length=20):
+        heap = [(0, start, [])]
+        visited = set()
+        paths_found = []
 
-        while heap:
-            current = heapq.heappop(heap)[1] #file a priorité pour garder le meilleur chemin à portée de main
+        while heap and len(paths_found) < max_paths:
+            _, current, path = heapq.heappop(heap)
 
             if current == goal:
-                path = []
-                while current in came_from:
-                    path.append(current)
-                    current = came_from[current]
-                path.append(start)
-                return path[::-1]
+                paths_found.append(path + [current])
+                continue
 
-            for neighbor in self.get_neighbors(*current, environnement):
-                if not self.is_valid_move(*neighbor, environnement):
-                    continue
+            if len(path) >= max_length:
+                paths_found.append(path + [current])
+                continue
 
-                tentative_g_score = g_score[current] + 1
+            if current not in visited:
+                visited.add(current)
 
-                if neighbor not in g_score or tentative_g_score < g_score[neighbor]:
-                    came_from[neighbor] = current
-                    g_score[neighbor] = tentative_g_score
-                    f_score[neighbor] = g_score[neighbor] + self.manhattan(neighbor, goal)
-                    heapq.heappush(heap, (f_score[neighbor], neighbor))
+                for neighbor in self.get_neighbors(*current, environnement):
+                    if self.is_valid_move(*neighbor, environnement):
+                        new_path = path + [current]
+                        priority = len(new_path) + self.manhattan(neighbor, goal)
+                        heapq.heappush(heap, (priority, neighbor, new_path))
 
-        return None
+        return paths_found
 
     def decide(self, environnement):
-        cible = [agent for agent in environnement.mas.agent_list if isinstance(agent, Avatar)][0]
+        cible = next(agent for agent in environnement.mas.agent_list if isinstance(agent, Avatar))
         start = (self.pos_x, self.pos_y)
         goal = (cible.pos_x, cible.pos_y)
 
-        path = self.astar(start, goal, environnement)
+        self.potential_paths = self.astar(start, goal, environnement)
 
-        if path and len(path) > 1:
-            next_pos = path[1]
+        if self.potential_paths and len(self.potential_paths[0]) > 1:
+            next_pos = self.potential_paths[0][1]
             self.dir_x = next_pos[0] - self.pos_x
             self.dir_y = next_pos[1] - self.pos_y
         else:
@@ -125,10 +124,5 @@ class Avatar(GenericAgent):
                 self.dir_y=0
                 self.dir_x=0
 
-        for avatar in hunter_proche:
-            if ([self.pos_x, self.pos_y] == [avatar.pos_x, avatar.pos_y]):
-                print("HUNTER WINS")
-                sys.exit(0)
-        
         self.pos_x += self.dir_x
         self.pos_y += self.dir_y

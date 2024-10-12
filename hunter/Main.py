@@ -83,7 +83,7 @@ def main():
     env = Environment(w, h, cell_size, torus=False)
     mas = MAS(env, seed, pause, trace)
     print(f"{degradation=}")
-    mas.pose_murs(maze.Maze(w, h).grid, degradation)
+    mas.pose_murs(maze.Maze(w, h).grid-1, degradation)
     mas.run_simulation(num_turns)
     env.run_gui()
 

@@ -17,7 +17,7 @@ class Maze:
         self._height = height
         self._scale = scale
         self.grid = np.zeros((width, height), dtype=bool)
-
+        self.prng = np.random.default_rng(123467)
         self.__generate(animate)
 
     def __frontier(self, x, y):
@@ -97,17 +97,19 @@ class Maze:
         :param animate: animate the maze
         """
         s = set()
-        x, y = (random.randint(0, self._width - 1), random.randint(0, self._height - 1))
+        x, y = (self.prng.integers(0, self._width-1), random.randint(0, self._height-1))
         self.grid[x][y] = True
+        self.grid[0][0] = True
+        self.grid[self._width-1, self._height-1]
         fs = self.__frontier(x, y)
         for f in fs:
             s.add(f)
         while s:
-            x, y = random.choice(tuple(s))
+            x, y = self.prng.choice(tuple(s))
             s.remove((x, y))
             ns = self.__neighbours(x, y)
             if ns:
-                nx, ny = random.choice(tuple(ns))
+                nx, ny = self.prng.choice(tuple(ns))
                 self.__connect(x, y, nx, ny)
             fs = self.__frontier(x, y)
             for f in fs:

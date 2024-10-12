@@ -1,3 +1,5 @@
+import sys
+sys.path.insert(0, '..')
 from core.GenericAgent import GenericAgent
 
 class Agent(GenericAgent):
