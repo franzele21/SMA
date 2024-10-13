@@ -1,7 +1,7 @@
 import sys
 sys.path.insert(0, '..')
 from core.GenericEnvironment import GenericEnvironment
-from hunter.Agent import Hunter, Avatar
+from hunter.Agent import Hunter, Avatar, Mur
 import tkinter as tk
 import colorsys
 
@@ -41,12 +41,23 @@ class Environment(GenericEnvironment):
                         fill=color, outline="", tags="path"
                     )
 
-        # Draw all agents
         for agent in self.mas.agent_list:
             x = agent.pos_x * self.cell_size
             y = agent.pos_y * self.cell_size
-            self.canvas.create_oval(x, y, x + self.cell_size, y + self.cell_size,
-                                    fill=agent.get_color(), tags="agent")
+            if isinstance(agent, (Hunter, Avatar)):
+                # Draw Hunter and Avatar as ovals
+                self.canvas.create_oval(
+                    x + 2, y + 2, 
+                    x + self.cell_size - 2, y + self.cell_size - 2,
+                    fill=agent.get_color(), tags="agent"
+                )
+            elif isinstance(agent, Mur):
+                # Draw walls as rectangles
+                self.canvas.create_rectangle(
+                    x, y, 
+                    x + self.cell_size, y + self.cell_size,
+                    fill=agent.get_color(), tags="wall"
+                )
 
     def get_gradient_color(self, intensity):
         # Convert from blue (cold) to red (hot)
