@@ -88,12 +88,13 @@ The main parameters are found in the `config.py` file. Here are some examples of
 3. 🧠 Hunter Intelligence Test:
    A PathFinder A* algorithm has been implemented for the Hunter along with a function to visualize the optimality gradient of the planned path.
    ![image](https://github.com/user-attachments/assets/d4e48d89-1aa3-4e1f-bf84-5c76d84dba4e)
+   
    These parameters push the Hunter to calculate more potential paths and plan further into the future.
 
-4. 🐟 An Interesting Visualization of the Wator Simulation:
+5. 🐟 An Interesting Visualization of the Wator Simulation:
    If fish are set to an equal or higher number than sharks, they will always win the simulation.
 
-5. 💻 Excellent Use of the Core Package with Optimized Generalization:
+6. 💻 Excellent Use of the Core Package with Optimized Generalization:
    In each of our simulations, we use the core package, which represents the generic classes of our simulations. The `GenericEnvironment` class is very complete and fully modular for each simulation.
    We also adhered to the object-oriented programming paradigm, making the code highly understandable.
 
