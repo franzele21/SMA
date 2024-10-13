@@ -87,7 +87,7 @@ The main parameters are found in the `config.py` file. Here are some examples of
 
 3. 🧠 Hunter Intelligence Test:
    A PathFinder A* algorithm has been implemented for the Hunter along with a function to visualize the optimality gradient of the planned path.
-   ![image](https://github.com/user-attachments/assets/2c282e08-0587-4b6a-b409-c8e12e182610)
+   ![image](https://github.com/user-attachments/assets/d4e48d89-1aa3-4e1f-bf84-5c76d84dba4e)
    These parameters push the Hunter to calculate more potential paths and plan further into the future.
 
 4. 🐟 An Interesting Visualization of the Wator Simulation:
