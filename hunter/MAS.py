@@ -30,21 +30,8 @@ class MAS(GenericMAS):
         self.actualise_position()
 
     def initialize_agents(self, num_agents, seed):
-        positions = set()
         self.prng = np.random.default_rng(seed)
         self.avatar = Avatar(0, 0)
         self.hunter = Hunter(self.environment.width-1, self.environment.height-1)
         self.agent_list.append(self.avatar)
         self.agent_list.append(self.hunter)
-
-
-
-        # for nb_agent in range(num_agents):
-        #     added_agent = 0
-        #     while added_agent < nb_agent:
-        #         x = prng.integers(0, self.environment.width - 1)
-        #         y = prng.integers(0, self.environment.height - 1)
-        #         if (x, y) not in positions:
-        #             positions.add((x, y))
-        #             self.agent_list.append(agent_type(x, y, trace=self.trace))
-        #             added_agent += 1
