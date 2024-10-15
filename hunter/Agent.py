@@ -13,8 +13,6 @@ class Mur(GenericAgent):
     def decide(self, environnement):
         pass
 
-import heapq
-
 class Hunter(GenericAgent):
     def __init__(self, pos_x, pos_y, color="red", trace=False):
         super().__init__(pos_x, pos_y, color, trace)
