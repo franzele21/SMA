@@ -98,6 +98,60 @@ The main parameters are found in the `config.py` file. Here are some examples of
    In each of our simulations, we use the core package, which represents the generic classes of our simulations. The `GenericEnvironment` class is very complete and fully modular for each simulation.
    We also adhered to the object-oriented programming paradigm, making the code highly understandable.
 
+7. 🔩 Configurations giving out the best results:
+   - Hunter :
+        ```json
+        {"width": 35,
+        "height": 35,
+        "view": {
+        "boxSize": 20
+        },
+        "degradation": 0.33,
+        "nbTicks": 200,
+        "pause": 0.1,
+        "seed": 1234567,
+        "trace": true}
+        ```
+
+   - Particules :
+        ```json
+        {"width": 50,
+        "height": 50,
+        "view": {
+        "boxSize": 10
+        },
+        "nbTicks": 100,
+        "nbParticles": 20,
+        "pause": 0.1,
+        "seed": 123456,
+        "trace": true}
+        ```
+
+  - WATOR :
+    ```json
+    {"width": 50,
+    "height": 50,
+    "view": {
+    "boxSize": 10
+    },
+    "nbTicks": 1000,
+    "poisson": {
+        "nbpoisson" : 150,
+        "gest_poisson" : 3
+    } ,
+    "requin": {
+        "nbrequin":10,
+        "gest_requin":2,
+        "faim_requin":20
+    },
+    "pause": 0.01,
+    "seed": 123456,
+    "trace": true}
+    ```
+
+    During the WATOR simulation, we cna observe a very odd behavious where sharks tend to converge to the top left corner of the environment, while the fish, when being hunted by the sharks converge towards the bottom right corner of the envionment.
+   
+
 ## 🐛 Bugs and Improvements
 
 ### Known Bugs:
