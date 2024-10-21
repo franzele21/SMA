@@ -4,17 +4,17 @@
     "view": {
       "boxSize": 10
     },
-    "nbTicks": 200,
+    "nbTicks": 1000,
     "poisson": {
-        "nbpoisson" : 200,
-        "gest_poisson" : 1
+        "nbpoisson" : 150,
+        "gest_poisson" : 3
     } ,
     "requin": {
-        "nbrequin":200,
+        "nbrequin":10,
         "gest_requin":2,
-        "faim_requin":10
+        "faim_requin":20
     },
     "pause": 0.01,
-    "seed": 12346,
+    "seed": 123456,
     "trace": true
   }

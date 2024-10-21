@@ -99,7 +99,7 @@ class Requin(GenericAgent):
             self.pos_y=poisson_mange.pos_y
             nouveau_deplacement = [0,0]
         else:
-            self.faim_act -= 1
+            self.faim_act -= 0
 
             requins = environnement.mas.voisinage(self.pos_x, self.pos_y, 1)
             requins_proche = [agent for agent in requins if not agent.mort and isinstance(agent, Requin)]
