@@ -149,7 +149,7 @@ The main parameters are found in the `config.py` file. Here are some examples of
     "trace": true}
     ```
 
-    During the WATOR simulation, we cna observe a very odd behavious where sharks tend to converge to the top left corner of the environment, while the fish, when being hunted by the sharks converge towards the bottom right corner of the envionment.
+    During the WATOR simulation, we can observe a very odd behavious where sharks tend to converge to the top left corner of the environment. However the fish, when being hunted by the sharks converge towards the bottom right corner of the envionment.
    
 
 ## 🐛 Bugs and Improvements
