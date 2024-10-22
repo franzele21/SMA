@@ -1,5 +1,4 @@
-heapq
-colorsys
+colorsysx
 numpy
-PIL
+Pillow
 requests
